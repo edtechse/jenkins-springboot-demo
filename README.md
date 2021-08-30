@@ -10,5 +10,5 @@ Commands to build and run the docker file
 3. Tag the springboot web image
       docker tag <docker ps image id> <your dockerhub userid>/subsdevices:v1
 
-4. Push the tagged image to the docker hub
+4. Push the tagged image to the docker hub. 
      docker push <your dockerhub userid>/subsdevices:v1
