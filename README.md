@@ -1,7 +1,7 @@
 Commands to build and run the docker file
 
 1. To build a docker image from the Dockerfile,
-   goto dir where Dockerfile is present,
+   goto dir where Dockerfile is present, 
       docker build -t niyaaniyan/springboot-docker . 
 2. To run the docker image in container
       docker run -d -p 8080:8080 niyaaniyan/springboot-docker
