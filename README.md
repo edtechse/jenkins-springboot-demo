@@ -7,7 +7,7 @@ Commands to build and run the docker file
       docker run -d -p 8080:8080 niyaaniyan/springboot-docker
 3.To see all running docker images
       docker images 
-3. Tag the springboot web image
+3. Tag the springboot web image 
       docker tag <docker ps image id> <your dockerhub userid>/subsdevices:v1
 
 4. Push the tagged image to the docker hub.  
