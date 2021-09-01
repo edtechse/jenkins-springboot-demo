@@ -1,9 +1,13 @@
 pipeline{
     agent any
+    environment {
+        NEW_VERSION = '1.0.0'
+        SERVER_CREDENTIALS = credentials ('mygithub-creds')
+    }
     stages{
         stage("Build") {
             steps {
-                 echo 'testing the application...'
+                 echo 'building the application...'
             }
         }
         stage("Test") {
@@ -14,6 +18,7 @@ pipeline{
         stage("Deploy") {
             steps {
                 echo 'deploying the application...'
+                echo "credentials ${SERVER_CREDENTIALS}"
             }
         }
     }
