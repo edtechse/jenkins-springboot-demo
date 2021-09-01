@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    tools {
+        maven 'Maven'
+    }
     environment {
         NEW_VERSION = '1.0.0'
         SERVER_CREDENTIALS = credentials ('mygithub-creds')
@@ -8,6 +11,7 @@ pipeline{
         stage("Build") {
             steps {
                  echo 'building the application...'
+                 sh "mvn install"
             }
         }
         stage("Test") {
