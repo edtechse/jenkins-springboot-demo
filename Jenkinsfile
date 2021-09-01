@@ -11,7 +11,7 @@ pipeline{
         stage("Build") {
             steps {
                  echo 'building the application...'
-                 sh "mvn install"
+                 sh "mvn clean install"
             }
         }
         stage("Test") {
@@ -23,6 +23,7 @@ pipeline{
             steps {
                 echo 'deploying the application...'
                 echo "credentials ${SERVER_CREDENTIALS}"
+                sh "mvn spring-boot:run"
             }
         }
     }
