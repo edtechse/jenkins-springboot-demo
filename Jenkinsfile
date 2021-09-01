@@ -3,8 +3,19 @@ pipeline{
     stages{
         stage("Build") {
             steps {
-            sh "mvn -version"
-            sh "mvn clean install"
+                 echo 'testing the application...'
+                 sh "mvn -version"
+                 sh "mvn clean install"
+            }
+        }
+        stage("Test") {
+            steps {
+                echo 'testing the application...'
+            }
+        }
+        stage("Deploy") {
+            steps {
+                echo 'deploying the application...'
             }
         }
     }
