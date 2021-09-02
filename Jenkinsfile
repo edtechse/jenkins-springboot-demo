@@ -1,59 +1,73 @@
-def gv
-
-pipeline{
-    agent any
-    tools {
-        maven 'Maven'
+pipeline { 
+2
+    environment { 
+3
+        registry = "niyaaniyan/docker-sep2-2" 
+4
+        registryCredential = 'dockerhub_id' 
+5
+        dockerImage = '' 
+6
     }
-    parameters {
-        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
-        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+7
+    agent any 
+8
+    stages { 
+9
+        stage('Cloning our Git') { 
+10
+            steps { 
+11
+                git 'https://github.com/niyaaniyan2/jenkins-springboot-demo.git' 
+12
+            }
+13
+        } 
+14
+        stage('Building our image') { 
+15
+            steps { 
+16
+                script { 
+17
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+18
+                }
+19
+            } 
+20
+        }
+21
+        stage('Deploy our image') { 
+22
+            steps { 
+23
+                script { 
+24
+                    docker.withRegistry( '', registryCredential ) { 
+25
+                        dockerImage.push() 
+26
+                    }
+27
+                } 
+28
+            }
+29
+        } 
+30
+        stage('Cleaning up') { 
+31
+            steps { 
+32
+                sh "docker rmi $registry:$BUILD_NUMBER" 
+33
+            }
+34
+        } 
+35
     }
-
-    environment {
-        NEW_VERSION = '1.0.0'
-        SERVER_CREDENTIALS = credentials ('mygithub-creds')
-    }
-    stages{
-         stage("init") {
-            steps {
-                script {
-                   gv = load "script.groovy" 
-                }
-            }
-        }
-        stage("Build") {
-            steps {
-                 script {
-                    gv.buildApp()
-                }
-
-            }
-        }
-        stage("Test") {
-            when {
-                expression {
-                    params.executeTests
-                }
-            }
-            steps {
-                script {
-                    gv.testApp()
-                }
-            }
-        }
-        stage("Deploy") {
-            steps{
-                script {
-                    gv.deployApp()
-                }
-            }
-        }
-    }
-
-    post{
-        always{
-            cleanWs()
-        }
-    }
+36
 }
+
+
