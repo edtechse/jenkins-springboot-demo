@@ -10,7 +10,6 @@ def testApp() {
 def deployApp() {
     echo 'deplying the application...'
     echo "deploying version ${params.VERSION}"
-    sh "mvn spring-boot:run"
 } 
 
 return this
