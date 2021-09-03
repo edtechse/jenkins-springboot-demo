@@ -9,7 +9,15 @@ pipeline {
     }
   
     stages {   
-      stage('Cloning Git') {
+      stage('Logging into AWS ECR') {
+            steps {
+                script {
+                sh "aws ecr-public get-login-password --region ap-south-1 | docker login --username AWS --password-stdin public.ecr.aws/c5b1d5i5"  
+                }
+                
+            }
+        }
+        stage('Cloning Git') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/niyaaniyan2/jenkins-springboot-demo.git']]])    
             }
