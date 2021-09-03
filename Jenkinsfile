@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         AWS_ACCOUNT_ID="747674092094"
-        AWS_DEFAULT_REGION="ap-south-1"
-        IMAGE_REPO_NAME="mydockerecr"
+        AWS_DEFAULT_REGION="ap-southeast-1"
+        IMAGE_REPO_NAME="ecr-sep3"
         IMAGE_TAG="latest"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
@@ -12,7 +12,7 @@ pipeline {
       stage('Logging into AWS ECR') {
             steps {
                 script {
-                sh "aws ecr-public get-login-password --region ap-south-1 | docker login --username AWS --password-stdin public.ecr.aws/c5b1d5i5"  
+                sh "docker login --username AWS --password-stdin -p $(aws ecr get-login-password --region ap-southeast-1) 747674092094.dkr.ecr.ap-southeast-1.amazonaws.com"  
                 }
                 
             }
