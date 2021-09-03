@@ -8,17 +8,8 @@ pipeline {
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
   
-    stages {
-         stage('Logging into AWS ECR') {
-            steps {
-                script {
-                sh "aws ecr-public get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin public.ecr.aws/b8g5x2z4"
-                }
-                
-            }
-        }
-       
-        stage('Cloning Git') {
+    stages {   
+      stage('Cloning Git') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/niyaaniyan2/jenkins-springboot-demo.git']]])    
             }
