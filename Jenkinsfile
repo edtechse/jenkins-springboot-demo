@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        AWS_ACCOUNT_ID="747674092094"
+        AWS_ACCOUNT_ID="162387011843"
         AWS_DEFAULT_REGION="ap-southeast-1"
-        IMAGE_REPO_NAME="ecr-sep3"
+        IMAGE_REPO_NAME="testecr"
         IMAGE_TAG="latest"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
@@ -12,14 +12,14 @@ pipeline {
       stage('Logging into AWS ECR') {
             steps {
                 script {
-                sh 'docker login --username AWS -p $(aws ecr get-login-password --region ap-southeast-1) 747674092094.dkr.ecr.ap-southeast-1.amazonaws.com'  
+                sh 'docker login --username AWS -p $(aws ecr get-login-password --region ap-southeast-1) 162387011843.dkr.ecr.ap-southeast-1.amazonaws.com'  
                 }
                 
             }
         }
         stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/niyaaniyan2/jenkins-springboot-demo.git']]])    
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/edtechse/jenkins-springboot-demo.git']]])    
             }
         }
  
